@@ -13,17 +13,17 @@
 //--------------------------------------------------------------------
 
 #include <Joystick.h>
-#include <Joystick_Settings.h>
+#include "Joystick_Settings.h"
 
 // Last state of the button(s)
-int lastButtonState[len(pinToButtonMap)] = {};
+int lastButtonState[buttonMapLength] = {};
 
 Joystick_ Joystick;
 
 void setup() {
   // Initialize Button Pins
-  for (int index = 0; index < len(pinToButtonMap); index++) {
-    pinMode(pinToButtonMap(index) INPUT_PULLUP);
+  for (int index = 0; index < buttonMapLength; index++) {
+    pinMode(pinToButtonMap[index], INPUT_PULLUP);
     lastButtonState[index] = 0;
   }
 
@@ -35,7 +35,7 @@ void loop() {
 
   // Read pin values
   
-  for (int index = 0; index < len(pinToButtonMap); index++ ) {
+  for (int index = 0; index < buttonMapLength; index++ ) {
     int currentButtonState = !digitalRead(pinToButtonMap[index]);
     if (currentButtonState != lastButtonState[index])
     {
