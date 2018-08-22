@@ -3,7 +3,7 @@
 
 // Constant that maps the phyical pin to the joystick button.
 const int buttonMapLength = 1;
-const int pinToButtonMap[1] = {9};
+const int pinToButtonMap[buttonMapLength] = {9};
 
 // Constant that sets the delay at the end of the loop.
 const int delayValue = 50;
