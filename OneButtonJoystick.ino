@@ -7,7 +7,8 @@
 // Connect a switch between the selected pin and 
 // ground.
 // Default values:
-//     pinToButtonMap = 9
+//     buttonMapLength = 1
+//     pinToButtonMap = 2
 //     delayValue = 50
 //
 //--------------------------------------------------------------------
@@ -18,34 +19,20 @@
 // Last state of the button(s)
 int lastButtonState[buttonMapLength] = {};
 
-Joystick_ Joystick;
+// Create a joystick and DISABLE ALL THE THINGS - except the buttons we want
+Joystick_ Joystick(JOYSTICK_DEFAULT_REPORT_ID, JOYSTICK_TYPE_JOYSTICK,
+  buttonMapLength, 0,    // Button Count, Hat Switch Count
+  false, false, false,   // No X, Y, or Z Axes
+  false, false, false,   // No Rx, Ry, or Rz
+  false, false,          // No rudder or throttle
+  false, false, false);  // No accelerator, brake, or steering
 
 void setup() {
-  // Initialize Button Pins
+  // Initialize Buttons
   for (int index = 0; index < buttonMapLength; index++) {
     pinMode(pinToButtonMap[index], INPUT_PULLUP);
     lastButtonState[index] = 0;
   }
-
-  // Set Joystick Range Values
-  Joystick.setXAxisRange(-127, 127);
-  Joystick.setYAxisRange(-127, 127);
-  Joystick.setZAxisRange(-127, 127);
-  Joystick.setRxAxisRange(0, 360);
-  Joystick.setRyAxisRange(360, 0);
-  Joystick.setRzAxisRange(0, 720);
-  Joystick.setThrottleRange(0, 255);
-  Joystick.setRudderRange(255, 0);
-
-  // Set Joystick values
-  Joystick.setXAxis(0);
-  Joystick.setYAxis(0);
-  Joystick.setZAxis(0);
-  Joystick.setRxAxis(180);
-  Joystick.setRyAxis(180);
-  Joystick.setRzAxis(360);
-  Joystick.setThrottle(128);
-  Joystick.setRudder(128);
 
   // Initialize Joystick Library
   Joystick.begin();
